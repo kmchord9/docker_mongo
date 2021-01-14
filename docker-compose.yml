@@ -28,4 +28,4 @@ services:
     build: ./compose/node
     tty: true
     volumes:
-      - ./src:/home/docker/src
+      - ./src:/home/node/src
