@@ -33,8 +33,8 @@ function modelSave() {
 			small.save().then(err => {
 				if(err) console.error(err);
 				resolve();
-    },2000);
-    } )
+      });
+    },2000)
   })
 };
 
