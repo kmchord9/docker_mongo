@@ -13,7 +13,7 @@ var options = {
 
 };
 
-var uri = 'mongodb://dockermongo_mongo_1:27017/temp'
+var uri = 'mongodb://docker_mongo_mongo_1:27017/temp'
 
 mongoose.connect(uri, options);
 
