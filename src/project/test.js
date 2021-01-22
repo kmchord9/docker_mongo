@@ -6,7 +6,7 @@ var options = {
   useUnifiedTopology: true
 };
 
-var uri = 'mongodb://dockermongo_mongo_1:27017/temp';
+var uri = 'mongodb://docker_mongo_mongo_1:27017/temp';
 
 mongoose.connect(uri, options);
 
@@ -39,11 +39,12 @@ function modelSave() {
 };
 
 (async () => {
-	for (let i=0; i<5; i++) {
+	//for (let i=0; i<5; i++) {
+	while (true) {
 		await modelSave().then( resolve =>{ console.log("finish")	});
 		await sleep(1);
 		console.log("done")
-  }
+	}
   
   mongoose.disconnect();
   console.log("disconnected");
