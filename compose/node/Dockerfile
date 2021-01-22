@@ -13,7 +13,7 @@ RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
        vim \                           
        mongodb-org \
     && echo $LOCAL_USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$LOCAL_USERNAME \
-    && chmod 0440 /etc/sudoers.d/$LOCAL_USERNAME
+    && chmod 0440 /etc/sudoers.d/$LOCAL_USERNAME \
     && mkdir /home/$LOCAL_USERNAME/src \
     && chown $LOCAL_USERNAME:$LOCAL_USERNAME /home/$LOCAL_USERNAME/src \
     && apt-get clean \
