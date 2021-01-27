@@ -1,0 +1,121 @@
+import React from 'react'
+import { Bar, Chart } from 'react-chartjs-2'
+import 'chartjs-plugin-streaming'
+
+let blueCount = 5
+let redCount = 5
+let whiteCount = 5
+let RealTimeChart = (props) => {
+
+  function onRefresh(chart) {
+    chart.config.data.datasets.map((dataset) => {
+      switch (dataset.label) {
+        case 'blue':
+          dataset.data.push({
+            x: Date.now() - 1,
+            y: blueCount,
+          })
+          return null
+        case 'white':
+          dataset.data.push({
+            x: Date.now(),
+            y: whiteCount,
+          })
+          return null
+        case 'red':
+          dataset.data.push({
+            x: Date.now() + 1,
+            y: redCount,
+          })
+          return null
+        default:
+          console.log('default')
+          return null
+      }
+    })
+  }
+
+  var color = Chart.helpers.color
+
+  return (
+    <div>
+      <Bar
+        height={100}
+        data={{
+          datasets: [
+            {
+              label: 'blue',
+              stack: 'blue',
+              backgroundColor: color('#516897')
+                .alpha(1)
+                .rgbString(),
+              data: [],
+            },
+            {
+              label: 'white',
+              stack: 'white',
+              backgroundColor: color('#B9B9B9')
+                .alpha(1)
+                .rgbString(),
+              data: [],
+            },
+            {
+              label: 'red',
+              stack: 'red',
+              backgroundColor: color('#AC3A38')
+                .alpha(1)
+                .rgbString(),
+              data: [],
+            },
+          ],
+        }}
+        barSize={100}
+        options={{
+          responsive: true,
+          legend: {
+            display: false,
+          },
+
+          scales: {
+            xAxes: [
+              {
+                stacked: true,
+                type: 'realtime',
+                realtime: {
+                  duration: 15000,
+                  refresh: 3000,
+                  delay: 1000,
+                  onRefresh: (chart) => console.log("refresh"),
+                },
+                gridLines: {
+                  color: '#4d4d4d',
+                },
+                ticks: {
+                  display: false,
+                },
+              },
+            ],
+            yAxes: [
+              {
+                stacked: true,
+                gridLines: {
+                  color: '#4d4d4d',
+                },
+                ticks: {
+                  min: 0,
+                  beginAtZero: true,
+                  callback: function(value) {
+                    if (value % 1 === 0) {
+                      return value
+                    }
+                  },
+                },
+              },
+            ],
+          },
+        }}
+      />
+    </div>
+  )
+}
+export default RealTimeChart
